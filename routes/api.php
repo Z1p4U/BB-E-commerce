@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +35,23 @@ Route::prefix("v1")->group(function () {
             Route::post("logout", 'logout');
         });
 
+        Route::controller(CategoryController::class)->prefix("category")->group(function () {
+            Route::post("store", 'store');
+            Route::put("update/{id}", 'update');
+            Route::delete("delete/{id}", 'destroy');
+        });
+
+        Route::controller(BrandController::class)->prefix("brand")->group(function () {
+            Route::post("store", 'store');
+            Route::put("update/{id}", 'update');
+            Route::delete("delete/{id}", 'destroy');
+        });
+
+        Route::controller(ProductController::class)->prefix("product")->group(function () {
+            Route::post("store", 'store');
+            Route::put("update/{id}", 'update');
+            Route::delete("delete/{id}", 'destroy');
+        });
 
         Route::controller(PhotoController::class)->prefix("photo")->group(function () {
             Route::post("store", 'store');
@@ -46,6 +66,21 @@ Route::prefix("v1")->group(function () {
     });
 
     Route::post('login', [AuthController::class, 'login']);
+
+    Route::controller(BrandController::class)->prefix("brand")->group(function () {
+        Route::get("list", "index");
+        Route::get("show/{id}", "show");
+    });
+
+    Route::controller(ProductController::class)->prefix("product")->group(function () {
+        Route::get("list", "index");
+        Route::get("show/{id}", "show");
+    });
+
+    Route::controller(CategoryController::class)->prefix("category")->group(function () {
+        Route::get("list", "index");
+        Route::get("show/{id}", "show");
+    });
 
     Route::controller(PhotoController::class)->prefix("photo")->group(function () {
         Route::get("list", "index");
