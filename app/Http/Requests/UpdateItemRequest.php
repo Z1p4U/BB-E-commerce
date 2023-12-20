@@ -22,7 +22,14 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => "required|unique:items,name",
+            "product_id" => "required",
+            "size" => "required",
+            "sale" => "boolean",
+            "price" => "required",
+            "discount_price" => "nullable",
+            "description" => "nullable",
+            "photo" => "nullable"
         ];
     }
 }

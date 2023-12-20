@@ -8,6 +8,15 @@ use Illuminate\Auth\Access\Response;
 
 class ItemPolicy
 {
+
+    public function before(User $user)
+    {
+        if ($user->role === "admin") {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Determine whether the user can view any models.
      */
@@ -45,7 +54,10 @@ class ItemPolicy
      */
     public function delete(User $user, Item $item): bool
     {
-        //
+        if ($user->role === "admin") {
+            return true;
+        }
+        return false;
     }
 
     /**

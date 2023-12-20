@@ -92,18 +92,27 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, String $id)
     {
-        $payload = collect($request->validated());
         DB::beginTransaction();
         try {
-
             $product = Product::findOrFail($id);
-            $product->update($payload->toArray());
+
+            $product->update([
+                "name" => $request->name,
+                "short_description" => $request->short_description,
+                "description" => $request->description,
+                "photo" => $request->photo
+            ]);
+
+            $product->categories()->sync($request->input('category_ids'));
+            $product->brands()->sync($request->input('brand_ids'));
+
             DB::commit();
 
             return $this->success('Product updated successfully', $product);
         } catch (Exception $e) {
             DB::rollback();
-            return $this->notFound("Product Not Found");
+            // throw $e;
+            return $this->notFound('Product Update failed');
         }
     }
 

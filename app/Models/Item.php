@@ -10,7 +10,7 @@ class Item extends Model
 {
     use HasFactory, BasicAudit;
 
-    public $fillable = ["name", "short_description", "description", "category_id", "brand_id", "photo"];
+    public $fillable = ["name", "product_id", "size", "sale", "price", "discount_price", "description", "photo"];
 
 
     public function product()

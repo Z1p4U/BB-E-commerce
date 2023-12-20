@@ -23,8 +23,6 @@ class UpdateProductRequest extends FormRequest
     {
         return [
             "name" => "required",
-            "category_id" => "required",
-            "brand_id" => "required",
             "short_description" => "required",
             "description" => "required",
             "photo" => "nullable"

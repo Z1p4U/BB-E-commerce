@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string("name");
+            $table->foreignId("product_id")->constrained()->cascadeOnDelete();
+            $table->string("size");
+            $table->boolean('sale')->default(false);
+            $table->string("price");
+            $table->string("discount_price")->nullable();
+            $table->string("description")->nullable();
+            $table->string("photo")->nullable();
+            $table->auditColumns();
         });
     }
 
