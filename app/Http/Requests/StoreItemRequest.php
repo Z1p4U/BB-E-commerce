@@ -24,6 +24,7 @@ class StoreItemRequest extends FormRequest
         return [
             "name" => "required|unique:items,name",
             "product_id" => "required",
+            "sku" => "required|unique:items,sku",
             "size" => "required",
             "sale" => "nullable|boolean",
             "price" => "required",

@@ -46,7 +46,7 @@ class Product extends Model
         return $this->belongsToMany(Brand::class, "brand_product");
     }
 
-    public function item()
+    public function items()
     {
         $this->hasMany(Item::class);
     }

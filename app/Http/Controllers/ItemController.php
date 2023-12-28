@@ -54,8 +54,8 @@ class ItemController extends Controller
             return $this->success('Item created successfully', $item);
         } catch (Exception $e) {
             DB::rollback();
-            throw $e;
-            // return $this->notFound('Item creation failed');
+            // throw $e;
+            return $this->notFound('Item creation failed');
         }
     }
 
@@ -78,8 +78,8 @@ class ItemController extends Controller
         } catch (Exception $e) {
             DB::rollback();
 
-            // return $e;
-            return $this->notFound('Item Not Found');
+            return $e;
+            // return $this->notFound('Item Not Found');
         }
     }
 
@@ -93,6 +93,11 @@ class ItemController extends Controller
         try {
 
             $item = Item::findOrFail($id);
+
+            if ($payload['sale'] === null) {
+                $payload['sale'] = 0;
+            };
+
             $item->update($payload->toArray());
             DB::commit();
 

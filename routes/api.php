@@ -4,6 +4,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProductController;
@@ -70,6 +73,16 @@ Route::prefix("v1")->group(function () {
             Route::post("force-delete/{id}", "forceDelete");
             Route::post("clear-trash", "clearTrash");
         });
+
+        Route::controller(ImportController::class)->prefix("import")->group(function () {
+            Route::post("excel", 'ExcelImport');
+            Route::post("csv", 'CsvImport');
+        });
+    });
+
+    Route::controller(ExportController::class)->prefix("export")->group(function () {
+        Route::get("excel", 'ExcelExport');
+        Route::get("csv", 'CsvExport');
     });
 
     Route::post('login', [AuthController::class, 'login']);

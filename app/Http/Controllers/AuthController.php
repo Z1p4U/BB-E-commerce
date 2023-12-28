@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -53,7 +54,12 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->createNewToken(auth()->refresh());
+        // return $this->createNewToken(auth()->refresh());
+        $token = JWTAuth::parseToken()->refresh();
+
+        return response()->json([
+            'token' => $token,
+        ]);
     }
 
     /**

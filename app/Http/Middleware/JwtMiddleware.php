@@ -20,11 +20,26 @@ class JwtMiddleware
         if ($request->header('authorization') === null) {
             throw new UnauthorizedException('token is not found');
         } else {
-            $user = JWTAuth::parseToken()->authenticate();
 
+            try {
+                $user = JWTAuth::parseToken()->authenticate();
+            } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+                // Handle expired token
+                throw new UnauthorizedException('Token has expired');
+            } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+                // Handle invalid token
+                throw new UnauthorizedException('Invalid token');
+            } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+                // Handle other JWT exceptions
+                throw new UnauthorizedException('JWTException: ' . $e->getMessage());
+            }
+
+            // If the token is valid, proceed with the request
             return $next($request);
-        }
 
-        return $next($request);
+            // $user = JWTAuth::parseToken()->authenticate();
+
+            // return $next($request);
+        }
     }
 }
