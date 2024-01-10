@@ -77,6 +77,8 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, String $id)
     {
         $payload = collect($request->validated());
+
+
         DB::beginTransaction();
         try {
 

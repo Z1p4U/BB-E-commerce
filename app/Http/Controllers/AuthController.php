@@ -15,13 +15,6 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    /**
-     * APIs for user login
-     *
-     * @bodyParam username required.
-     * @bodyParam password required.
-     */
-
     public function login(LoginRequest $request)
     {
         $payload = collect($request->validated());
@@ -39,9 +32,6 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * APIs for user login out
-     */
     public function logout()
     {
         auth()->logout();
@@ -49,9 +39,6 @@ class AuthController extends Controller
         return $this->success('User successfully signed out', null);
     }
 
-    /**
-     * APIs for refresh token
-     */
     public function refresh()
     {
         // return $this->createNewToken(auth()->refresh());
@@ -62,11 +49,6 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Change Password
-     *
-     * @bodyParam password.
-     */
     public function changePassword(ChangePasswordRequest $request, $id)
     {
         $payload = collect($request->validated());

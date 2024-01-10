@@ -101,6 +101,7 @@ Route::prefix("v1")->group(function () {
         Route::get("list", "index");
         Route::get("show/{id}", "show");
     });
+
     Route::controller(ItemController::class)->prefix("item")->group(function () {
         Route::get("list", "index");
         Route::get("show/{id}", "show");

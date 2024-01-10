@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Item;
+use App\Models\Product;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -27,6 +28,35 @@ class ItemsImport implements ToModel, ShouldQueue, WithHeadingRow, WithChunkRead
 
         return null;
     }
+
+    // public function model(array $row)
+    // {
+    //     // Retrieve the item by its identifier (e.g., item_code)
+    //     $item = Item::where('id', $row['id'])->first();
+
+    //     if ($item) {
+    //         // Detach the item from its current category
+    //         $item->product()->detach();
+
+    //         // Retrieve the new category by its ID
+    //         $newProduct = Product::find($row['id']);
+
+    //         if ($newProduct) {
+    //             // Attach the item to the new category
+    //             $item->category()->associate($newProduct);
+    //             $item->save();
+
+    //             // Optionally, you can update the category_id directly as well
+    //             // $item->update(['category_id' => $newCategory->id]);
+
+    //             // Return the updated item model
+    //             return $item;
+    //         }
+    //     }
+
+    //     // Return null to skip creating a new model instance
+    //     return null;
+    // }
 
     public function chunkSize(): int
     {

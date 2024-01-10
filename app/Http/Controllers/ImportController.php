@@ -44,6 +44,8 @@ class ImportController extends Controller
 
             // Import the Excel file and update prices
             $file = $request->file('file');
+
+
             Excel::import(new ItemsImport, $file);
 
             return response()->json(['message' => 'Updated successfully.']);
